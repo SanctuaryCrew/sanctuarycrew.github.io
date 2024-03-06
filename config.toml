@@ -1,6 +1,6 @@
 baseURL = "https://www.sanctuarycrew.com"
 languageCode = "en-us"
-title = "Sanctuary Crew Gaming"
+title = "Sanctuary Crew"
 theme = "SanctuaryCrew"
 publishDir   = "public"
 
