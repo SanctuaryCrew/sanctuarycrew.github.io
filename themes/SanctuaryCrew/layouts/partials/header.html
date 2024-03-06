@@ -1,0 +1,54 @@
+<nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="{{ .Site.BaseURL }}" title="{{ $.Site.Params.sitetip | default .Site.Title }}">Home</a>
+        </div>
+        <div class="menu navbar-right">
+                {{ $currentPage := . }}
+                {{ range .Site.Menus.main }}
+                {{ if eq .URL "toggle" }}<a href="javascript:void(0);" class="theme-switch">{{ partial "svg-and-title.html" . }}</a>{{ else }}<a class="menu-item{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}" href="{{ .URL }}" title="{{ .Title }}">{{ partial "svg-and-title.html" . }}</a>{{ end }}
+                {{ end }}
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="{{ .Site.BaseURL }}" title="{{ $.Site.Params.sitetip | default .Site.Title }}">{{ .Site.Title }}</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                {{ $currentPage := . }}
+                {{ range .Site.Menus.main }}
+                <a class="menu-item{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}" href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a>
+                {{ end }}
+        </div>
+    </div>
+</nav>
+<div class="post-warp">
+    {{ $cdn_url := .Scratch.Get "cdn_url" }}
+    {{ with .Site.Params.avatar}}
+	{{ $avatar := .}}
+	
+    <div class="SCLogo">
+        <img id="SCLogo" src="{{ (printf "%s%s" $cdn_url $avatar)}}">
+    </div>
+    
+	<script type="text/javascript">
+
+		function getRandomLogoNum(min, max) {
+			return Math.floor(Math.random() * (max - min + 1) + min);
+		}    
+	
+		// Currently logos exist from logo1 through logo45.
+        // Change this if you add more.
+        let logonum = getRandomLogoNum(1,45);
+		//let logo = document.querySelector("#logo");
+        document.getElementById("SCLogo").src = "/logos/logo"+logonum.toString()+".jpg"; 
+       
+	</script>
+    {{ end }}
+</div>
